@@ -28,17 +28,6 @@ for dir in listDirectories(rootPath):
     pdfFiles = glob.glob(dir + "/*.pdf", recursive=False)
     for read_file_path in pdfFiles:
         print("\t" + read_file_path +" is written to text file")
-        try:
-            validate_paths({dir : 'dir',read_file_path : 'file'})
-        except ValueError as e:
-            print(e)  
-            sys.exit(1)
-        reader = open_pdf(read_file_path)
-        numberOfPages = no_pages_in_pdf(reader)
-        print("No of pages in pdf : " , numberOfPages)
-        print("writing pdf in to the path " , write_file_path)
-        f = openFile(write_file_path, "w")
-        for pg_no in range(1, numberOfPages):
-            writeToFile(f,read_page_in_pdf(reader,pg_no))
-            writeToFile(f, "\n~~~~~~~~~~~~~page~~separator~~~~~~~~~~~~~~~~~~~~\n")
-        closeFile(f);
+        base_content_path = dir;
+        write_file_path = read_file_path[:read_file_path.rfind("/")] + "/output.txt";
+        readPdfFileFromFolder();
