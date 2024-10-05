@@ -1,5 +1,6 @@
 import os
 from jproperties import Properties 
+from ordered_set import OrderedSet
 
 """
 File and Directory Utility Functions
@@ -11,17 +12,22 @@ writing to files, opening and closing files, validating paths and loading config
 
 def folderExists(path):
     return os.path.exists(path) and os.path.isdir(path)
+
 def fileExists(path):
     return os.path.exists(path) and os.path.isfile(path)
+
 def writeToFile(f,text):
     f.write(text)
+
 def openFile(path, mode):
     if 'b' in mode: # this check is required to avoid ValueError: binary mode doesn't take an encoding argument
          return open(path , mode)
     else:
         return open(path , mode, encoding="utf-8")
+
 def closeFile(f):
     f.close
+
 def validate_paths(path_map):
     if not path_map:
         raise ValueError("The path map must contain at least one entry.")
@@ -35,7 +41,16 @@ def validate_paths(path_map):
         else:
             raise ValueError(f"Invalid type '{expected_type}' for path '{path}'. Use 'dir' or 'file'.")
     print("All validations done.")
+
 def loadConfigfile(configfile):
     configs = Properties() 
     configs.load(openFile(configfile, 'rb')) 
     return configs;
+
+def listDirectories(directory):
+    availableDirs =  OrderedSet()
+    for root, dirs, unused in os.walk(directory):
+        availableDirs.add(root)
+        for dirName in dirs:
+            availableDirs.add(os.path.join(root, dirName))
+    return availableDirs;
