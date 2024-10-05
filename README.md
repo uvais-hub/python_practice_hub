@@ -2,6 +2,17 @@
 
 This repository documents my Python learning path through various projects, showcasing growth over time. Anyone interested can get started with these samples to master Python. Below are the mini-projects covered in this repository so far.
 
+## Requirements
+
+**Install Python and pip commands to get started.**  
+Once the installation is complete, please use the `test-python.py` script in the root directory to verify your installation.
+
+**Install VSCode or any IDE's.** 
+
+Hooray! Let's get started !!!
+
+---
+
 ## Projects
 
 ### Project 1: Read a PDF File from a Folder
@@ -40,8 +51,8 @@ This repository documents my Python learning path through various projects, show
 
 - **Error Handling**:
   - Handle cases where the folder is not available.
-  - Handle cases where the PDF file is not present in a sub-folder.
-  - Handle cases where the `output.txt` file is not available in a sub-folder.
+  - Handle cases where the PDF file is not present in the content folder.
+  - Handle cases where the `output.txt` file is not available.
 
 ---
 
@@ -59,7 +70,3 @@ This repository documents my Python learning path through various projects, show
   - Handle cases where the configuration file does not have a regular expression.
 
 ---
-
-## Requirements
-
-You need to install Python and pip commands to get started.
