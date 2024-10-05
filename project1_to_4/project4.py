@@ -42,7 +42,7 @@ configs = loadConfigfile('./project1_to_4/config.properties');
 regex_pattern=configs.get('regex').data
 print('loaded property file : ' , regex_pattern)
 reader = open_pdf(read_file_path)
-
+f = openFile(write_file_path, "w")
 matched_content = []
 for page_number, page in enumerate(reader.pages, start=1):
     text = page.extract_text()
