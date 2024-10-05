@@ -4,3 +4,7 @@ Python equivalent of javadoc
 Branching in Python works ?
 having - on python names are not working ? is this expected ?
 #from ..project1.pdf_reader import * -- Not working
+-----------------------------------
+
+Pending bugs to fix : 
+1. when accessing project1 from project2 it is also running project1 first and then project2. - need to fix this

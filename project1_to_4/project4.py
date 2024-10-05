@@ -21,8 +21,6 @@ Error Handling
     Take care of case where the output.txt file is not available in a sub-folder
     Take care of case where no configuration file is available
     Take care of the case where configuration file does not have the regular expression
-  
- 
 """
 
 print("Current working directory :  " + os.getcwd())

@@ -16,13 +16,10 @@ Error Handling
     Take care of case where the output.txt file is not available in a sub-folder
 """
 
-
 print()
 print("Current working directory :  " + os.getcwd())
 rootPath = "content"
 print()
-
-
 
 for dir in listDirectories(rootPath):
     pdfFiles = glob.glob(dir + "/*.pdf", recursive=False)
