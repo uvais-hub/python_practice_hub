@@ -1,0 +1,12 @@
+1. Using H2 db in mysql mode
+2. Create 2 tables
+    questions_table
+        id, subject, chapter_name,Q_text , answer
+    options_table
+        id, q_id(foreign key), option
+3. Store regular expressions to extract q and a
+4. Use existing util to load regular expression, extract question info 
+5. massage the load data to split it in to columns
+6. update the data base.
+----------------------
+Clear the database before each execution

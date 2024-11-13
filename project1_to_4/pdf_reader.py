@@ -1,5 +1,5 @@
 from pypdf import PdfReader
-from file_utils import *
+from project1_to_4.file_utils import *
 
 """
 PDF Reader Utility Script
