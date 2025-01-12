@@ -4,6 +4,8 @@ import os
 import sys
 import re
 import io
+from project5.db_operations import DatabaseOperations
+
 """
 Project 5
     Store extracted questions in mysql
@@ -23,7 +25,7 @@ Error Handling
     Take care of any error handling in DB operations
 
 """
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+#sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 print("Current working directory :  " + os.getcwd())
 base_content_path = "content"
 read_file_path = base_content_path + "/" + "Chemistry Questions.pdf"
@@ -36,7 +38,7 @@ except ValueError as e:
 reader = open_pdf(read_file_path)
 numberOfPages = no_pages_in_pdf(reader)
 
-
+"""
 configs = file_utils.loadConfigfile('table-regex.properties');
 chapter_pattern_str = configs.get('chapter_pattern').data
 question_pattern_str = configs.get('question_pattern').data
@@ -53,6 +55,7 @@ chapter_pattern = re.compile(chapter_pattern_str)
 question_pattern = re.compile(question_pattern_str)
 options_pattern = re.compile(options_pattern_str)
 answer_pattern = re.compile(answer_pattern_str)
+"""
 
 text=""
 for page in reader.pages:
@@ -123,3 +126,53 @@ for chapter in extracted_data['chapters']:
         for option in qa['options']:
             print(f"  {option}")
         print(f"Answer: {qa['answer']}")
+
+
+# Initialize the database operations
+db = DatabaseOperations(
+    host='sql.freedb.tech',
+    user='freedb_python-practice',
+    password='uCa*ca6jaJD&xW5',
+    database='freedb_python-practice',
+    port=3306
+)
+
+# Connect to the database
+db.connect()
+
+if not db.table_exists('subjects'):
+    db.create_table('subjects', [
+        "subject_id INT AUTO_INCREMENT PRIMARY KEY",
+        "subject_name VARCHAR(100) NOT NULL"
+    ])
+
+if not db.table_exists('chapters'):
+    db.create_table('chapters', [
+        "chapter_id INT AUTO_INCREMENT PRIMARY KEY",
+        "subject_id INT",
+        "chapter_name VARCHAR(100) NOT NULL",
+        "FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)"
+    ])
+
+if not db.table_exists('questions'):
+    db.create_table('questions', [
+        "question_id INT AUTO_INCREMENT PRIMARY KEY",
+        "chapter_id INT",
+        "question_text TEXT NOT NULL",
+        "correct_answer CHAR(1) NOT NULL",
+        "FOREIGN KEY (chapter_id) REFERENCES chapters(chapter_id)"
+    ])
+
+if not db.table_exists('options'):
+    db.create_table('options', [
+        "option_id INT AUTO_INCREMENT PRIMARY KEY",
+        "question_id INT",
+        "option_letter CHAR(1) NOT NULL",
+        "option_text TEXT NOT NULL",
+        "FOREIGN KEY (question_id) REFERENCES questions(question_id)"
+    ])
+
+# Insert the extracted data
+db.insert_extracted_data(extracted_data)
+
+db.disconnect()
