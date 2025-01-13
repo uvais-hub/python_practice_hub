@@ -118,3 +118,11 @@ class DatabaseOperations:
                             for option in qa['options']:
                                 self.insert_option(question_id, option[0], option[2:])
         print("Extracted data inserted successfully")
+
+    def insert_subjective_question(self, chapter_id, question_text, answer):
+        query = "INSERT INTO subjective_questions (chapter_id, question_text, answer) VALUES (%s, %s, %s)"
+        affected_rows = self.execute_query(query, (chapter_id, question_text, answer))
+        if affected_rows:
+            last_id = self.execute_query("SELECT LAST_INSERT_ID()")[0][0]
+            return last_id
+        return None
